@@ -245,7 +245,7 @@ def output_result_v_and_a(
             f.write(
                 "{:<10}{:<15}{:<15}{:<15}{:<15}{:<15}{:<25}\n".format(
                     "angel", "an_BA(m/s²)", "at_BA(m/s²)", "a_BA(m/s²)", 
-                    "alpha(m/s²)", "ac_B(m/s²)", "aB(m/s²)"
+                    "alpha(rad/s²)", "ac_B(m/s²)", "aB(m/s²)"
                 )
             )
 
