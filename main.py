@@ -3,7 +3,7 @@ from  equation_force_analysis import force
 from equation_motion_analysis import motion,solve_longth_of_stick
 import sympy as sp
 import matplotlib.pyplot as plt
-import time
+
 # 设置字体，确保你的环境中有该字体
 plt.rcParams['font.sans-serif'] = ['SimHei']  # 设置黑体
 plt.rcParams['axes.unicode_minus'] = False    # 解决负号无法显示的问题
