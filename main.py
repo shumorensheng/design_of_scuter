@@ -1,3 +1,7 @@
+"""
+项目为Meng所建，相关问题请咨询邮箱xiaomengsmrs@qq.com
+"""
+
 from cam_analysis import cam
 from  equation_force_analysis import force
 from equation_motion_analysis import motion,solve_longth_of_stick
