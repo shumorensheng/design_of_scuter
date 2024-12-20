@@ -3,6 +3,7 @@ from  equation_force_analysis import force
 from equation_motion_analysis import motion,solve_longth_of_stick
 import sympy as sp
 import matplotlib.pyplot as plt
+import time
 # 设置字体，确保你的环境中有该字体
 plt.rcParams['font.sans-serif'] = ['SimHei']  # 设置黑体
 plt.rcParams['axes.unicode_minus'] = False    # 解决负号无法显示的问题
@@ -11,8 +12,8 @@ def main(e0, a, b,  I,  w, D, M1, M2, M3, pc, h, theta1, theta2, theta3, theta4,
     
     motion(e0, a, b, w,I)
     force(e0, a, b, w,D, I, M1, M2, M3,pc)
-    cam(h,theta1,theta2,theta3,theta4,e1,r,r0,name='凸轮1')
-    cam(h2,theta1,theta2,theta3,theta4,e2,r2,r0,name='凸轮2')
+    cam(h,theta1,theta2,theta3,theta4,e1,r,r0,name='凸轮1',filename1='result/凸轮1-s-δ曲线.png',filename2='result/凸轮1-轮廓线.png')
+    cam(h2,theta1,theta2,theta3,theta4,e2,r2,r0,name='凸轮2',filename1='result/凸轮2-s-δ曲线.png',filename2='result/凸轮2-轮廓线.png')
     
     
     

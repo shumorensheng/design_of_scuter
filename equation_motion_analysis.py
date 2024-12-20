@@ -32,6 +32,7 @@ def plot_graphs(x_vals, shift_vals, veltime_vals, acctime_vals):
     # 自动调整子图参数和保存总图
     plt.tight_layout()
     plt.savefig("result/运动方程解析.png")  # 保存整个图
+    plt.close()
     # 显示图像
     # #plt.show(block=False)  # 不阻塞后续代码执行
 
@@ -42,39 +43,69 @@ def plot_graphs(x_vals, shift_vals, veltime_vals, acctime_vals):
     # plt.close()
 
 
-def save_singel_graph(s, v, a, x):
-    p = sp.plot(
-        s,
-        (x, 0, 360),
-        show=False,
-        line_color="red",
-        legend=False,
-        set_xlabel="angel",
-        set_ylabel="s(m)",
-    )
-    p.save("result/shift.png")
-    p = sp.plot(
-        v,
-        (x, 0, 360),
-        show=False,
-        line_color="orange",
-        legend=False,
-        set_xlabel="angel",
-        set_ylabel="v(m/s)",
-    )
-    p.save("result/velocity.png")
-    p = sp.plot(
-        a,
-        (x, 0, 360),
-        show=False,
-        line_color="green",
-        legend=False,
-        set_xlabel="angel",
-        set_ylabel="a(m/s²)",
-    )
-    p.save("result/acceleration.png")
+# def save_singel_graph(s, v, a, x):
+#     p = sp.plot(
+#         s,
+#         (x, 0, 360),
+#         show=False,
+#         line_color="red",
+#         legend=False,
+#         set_xlabel="angel",
+#         set_ylabel="s(m)",
+#     )
+#     p.save("result/shift.png")
+#     p = sp.plot(
+#         v,
+#         (x, 0, 360),
+#         show=False,
+#         line_color="orange",
+#         legend=False,
+#         set_xlabel="angel",
+#         set_ylabel="v(m/s)",
+#     )
+#     p.save("result/velocity.png")
+#     p = sp.plot(
+#         a,
+#         (x, 0, 360),
+#         show=False,
+#         line_color="green",
+#         legend=False,
+#         set_xlabel="angel",
+#         set_ylabel="a(m/s²)",
+#     )
+#     p.save("result/acceleration.png")
     
-
+def save_singel_graph(s, v, a, x):
+    s=sp.lambdify(x,s,"numpy")
+    v=sp.lambdify(x,v,"numpy")
+    a=sp.lambdify(x,a,"numpy")
+    x_vals = np.linspace(0, 360, 1000)
+    s_range = s(x_vals)
+    v_range = v(x_vals)
+    a_range = a(x_vals)
+    plt.figure(1)
+    plt.plot(x_vals, s_range,color="red")
+    plt.title("位移")
+    plt.xlabel("角度（°）")
+    plt.ylabel("s(m)")
+    plt.savefig("result/位移.png")
+    plt.close()
+    
+    plt.figure(2)
+    plt.plot(x_vals, v_range, color="orange")
+    plt.title("速度")
+    plt.xlabel("角度（°）")
+    plt.ylabel("v(m/s)")
+    plt.savefig("result/速度.png")
+    plt.close()
+    
+    plt.figure(3)
+    plt.plot(x_vals, a_range, color="green")
+    plt.title("加速度")
+    plt.xlabel("角度（°）")
+    plt.ylabel("a(m/s²)")
+    plt.savefig("result/加速度.png")    
+    plt.close()
 
 def find_extra_angle(sigma, a1, b, e):
     extra_angle = []

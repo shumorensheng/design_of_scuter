@@ -6,7 +6,7 @@ import os
 plt.rcParams['font.sans-serif'] = ['SimHei']  # 设置黑体
 plt.rcParams['axes.unicode_minus'] = False    # 解决负号无法显示的问题
 
-def cam(h,theta1,theta2,theta3,theta4,e,r,r0,name,filename1='result/s-δ曲线.png',filename2='result/轮廓线.png'):
+def cam(h,theta1,theta2,theta3,theta4,e,r,r0,name,filename1,filename2):
     os.makedirs('result',exist_ok=True)
     x=sp.symbols('x')
     s_pression=sp.Piecewise((h*(x/theta1-sp.sin(2*sp.pi*x/theta1)/(2*sp.pi)),(x>=0)&(x<theta1)),\
@@ -29,7 +29,7 @@ def cam(h,theta1,theta2,theta3,theta4,e,r,r0,name,filename1='result/s-δ曲线.p
     # plt.pause(2)
 
     # # 关闭图像
-    # plt.close()
+    plt.close()
 
     
     
@@ -57,7 +57,7 @@ def cam(h,theta1,theta2,theta3,theta4,e,r,r0,name,filename1='result/s-δ曲线.p
     # plt.pause(2)
 
     # # 关闭图像
-    # plt.close()
+    plt.close()
     
     
 
@@ -74,5 +74,5 @@ if __name__ == '__main__':
     e2=0
     r2=60
     r0=10 #凸轮滚子半径 单位mm
-    cam(h,theta1,theta2,theta3,theta4,e,r,r0,name='凸轮1')
-    cam(h2,theta1,theta2,theta3,theta4,e2,r2,r0,name='凸轮2')
+    cam(h,theta1,theta2,theta3,theta4,e,r,r0,name='凸轮1',filename1='result/凸轮1-s-δ曲线.png',filename2='result/凸轮1-轮廓线.png')
+    cam(h2,theta1,theta2,theta3,theta4,e2,r2,r0,name='凸轮2',filename1='result/凸轮2-s-δ曲线.png',filename2='result/凸轮2-轮廓线.png')
