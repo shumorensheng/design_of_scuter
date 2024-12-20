@@ -43,38 +43,7 @@ def plot_graphs(x_vals, shift_vals, veltime_vals, acctime_vals):
     # plt.close()
 
 
-# def save_singel_graph(s, v, a, x):
-#     p = sp.plot(
-#         s,
-#         (x, 0, 360),
-#         show=False,
-#         line_color="red",
-#         legend=False,
-#         set_xlabel="angel",
-#         set_ylabel="s(m)",
-#     )
-#     p.save("result/shift.png")
-#     p = sp.plot(
-#         v,
-#         (x, 0, 360),
-#         show=False,
-#         line_color="orange",
-#         legend=False,
-#         set_xlabel="angel",
-#         set_ylabel="v(m/s)",
-#     )
-#     p.save("result/velocity.png")
-#     p = sp.plot(
-#         a,
-#         (x, 0, 360),
-#         show=False,
-#         line_color="green",
-#         legend=False,
-#         set_xlabel="angel",
-#         set_ylabel="a(m/s²)",
-#     )
-#     p.save("result/acceleration.png")
-    
+ 
 def save_singel_graph(s, v, a, x):
     s=sp.lambdify(x,s,"numpy")
     v=sp.lambdify(x,v,"numpy")
