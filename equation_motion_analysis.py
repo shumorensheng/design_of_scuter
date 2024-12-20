@@ -31,7 +31,7 @@ def plot_graphs(x_vals, shift_vals, veltime_vals, acctime_vals):
 
     # 自动调整子图参数和保存总图
     plt.tight_layout()
-    plt.savefig("运动方程解析.png")  # 保存整个图
+    plt.savefig("result/运动方程解析.png")  # 保存整个图
     # 显示图像
     # #plt.show(block=False)  # 不阻塞后续代码执行
 
