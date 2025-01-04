@@ -60,10 +60,12 @@ def cam(h,theta1,theta2,theta3,theta4,e,r,r0,name,filename1,filename2):
     plt.figure(2)#解析法设计凸轮轮廓
     plt.plot(x,y,'r')
     plt.plot(x_2,y_2,'b')
+    
     plt.legend(['理论廓线','工作廓线'])
     plt.title('%s轮廓'%name)
     plt.axis('off')
     # 显示图像
+    plt.gca().set_aspect('equal')
     plt.savefig(filename2)
     # plt.show(block=False)  # 不阻塞后续代码执行
 
