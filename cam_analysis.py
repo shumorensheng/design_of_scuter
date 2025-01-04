@@ -16,6 +16,20 @@ def cam(h,theta1,theta2,theta3,theta4,e,r,r0,name,filename1,filename2):
     s_pression=sp.lambdify(x,s_pression,'numpy')
     x_range=np.linspace(0,theta1+theta3+theta2+theta4,1000)
     y_range=s_pression(x_range)
+    if name=='凸轮2':
+        nihao=np.array(range(0,150,10))
+        nihao_y=s_pression(nihao)
+        haha=np.array(list(zip(nihao,nihao_y)))
+        with open('result/画凸轮.txt','w',encoding='utf-8') as f:
+            f.write( "{:<10}{:<15}\n".format(
+                '角度',
+                '凸轮位移',
+            ))
+            for i in range(len(nihao)):
+                f.write( "{:<10.2f}{:<15.2f}\n".format(
+                    float(haha[i][0]),
+                    float(haha[i][1]),
+                ))
     plt.figure(1)
     plt.plot(x_range,y_range)
     plt.xlabel('δ(°)')
