@@ -83,7 +83,7 @@ def find_extra_angle(sigma, a1, b, e):
         (sigma - sp.acos(e / sp.sqrt((a1**2 + b**2))) + sp.atan(b / a1)) * 180 / sp.pi
     )
     vertical_angel2 = (
-        (-sigma + 2 * sp.pi + sp.acos(e / (a1**2 + b**2)) - sp.atan(b / a1))
+        (-sigma + 2 * sp.pi + sp.acos(e /sp.sqrt (a1**2 + b**2)) - sp.atan(b / a1))
         * 180
         / sp.pi
     )
