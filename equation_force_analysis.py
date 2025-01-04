@@ -190,7 +190,9 @@ def force(e, a, b, w, d, i, m1, m2, m3, pc):
 
     # print(len(angel_list),len(p_force),len(R12n),len(R12t),len(c_force),len(c_torque),len(R12),len(R03),len(Mb))
     with open('result/力分析.txt','w',encoding='utf-8') as f:
-        f.write("第4行右边的垂直的角度、第8行是最低点的角度、第12行左边的垂直角度\n")
+        f.write("第4行右边的垂直的角度、第8行是最低点的角度、第12行左边的垂直角度\n\
+            和压力是向上为正方向，r12t是逆时针为正方向，ro3向右为正方向，\n\
+            ro1只有大小，Mi以及Mb是顺时针为正方向，")
         f.write(
                 "{:<10}{:<15}{:<15}{:<15}{:<15}{:<15}{:<15}{:<15}{:<15}{:<15}\n".format(
                     "angel", "和压力p(N)", "R12n(N)", "R12t(N)", 
