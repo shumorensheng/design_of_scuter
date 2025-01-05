@@ -42,10 +42,9 @@ def solve_cordiration(tangential_angel_of_OA, tangential_angel_of_AB, e, a, b):
             list(
                 zip(
                     e * np.ones_like(tangential_angel_of_AB),
-                    a
-                    * np.sin(
-                        tangential_angel_of_OA + b * np.sin(tangential_angel_of_AB)
-                    ),
+                    
+                    a* np.sin(tangential_angel_of_OA) + b * np.sin(tangential_angel_of_AB)
+                    ,
                 )
             )
         )
@@ -72,10 +71,14 @@ def solve_force(
     g=9.81,
 ):
     A, B = solve_cordiration(tangential_angel_of_OA, tangential_angel_of_AB, e, a, b)
+    # print(tangential_angel_of_AB)
+    
+    # print(B)
 
     c_x = np.float32(A[:, 0].T + b * i * np.cos(tangential_angel_of_AB))
     c_y = np.float32(A[:, 1].T + b * i * np.sin(tangential_angel_of_AB))
     C = np.float32(np.vstack((c_x, c_y)).T)  # C点坐标
+    # print(C)
     jc = m2 * pc * b**2/g#转动惯量
 
     #p假设向上为正
@@ -91,9 +94,9 @@ def solve_force(
     
     c_force_x = np.float32( -1*ac_x * m2 / g)
     c_force_y = np.float32( ac_y * m2 / g)
-    
+    # print(np.sqrt(ac_x**2 + ac_y**2))
     c_force = np.float32(np.sqrt(c_force_x**2 + c_force_y**2))
-    c_torque = np.float32(-1 * jc * alpha_list)
+    c_torque = np.float32(-1 * jc * alpha_list)#c_torque是顺时针为正方向
     
     # 根据对B点的力矩计算R12t,力矩以逆时针方向为正
     r_bc = np.float32(C - B)
@@ -101,9 +104,11 @@ def solve_force(
     M_gravity = -1*m2 * r_bc[:, 0]
     M_acceleration = c_force_y * r_bc[:, 0] - c_force_x * r_bc[:, 1]
     
-    R12t = np.float32((-c_torque - M_gravity - M_acceleration) / b)
-    R12t_x = np.float32(R12t * np.sin(tangential_angel_of_AB))
-    R12t_y = np.float32(R12t * np.cos(tangential_angel_of_AB))
+    R12t = np.float32((c_torque - M_gravity - M_acceleration) / b)
+    # print(M_gravity)
+    # print(M_acceleration)
+    R12t_x = np.float32(R12t * np.sin(tangential_angel_of_AB))#r12t_x是x轴正方向
+    R12t_y = np.float32(R12t * np.cos(tangential_angel_of_AB))#r12t_y方向向下
 
     # 求解R12n
     R12n = np.float32(
@@ -116,7 +121,7 @@ def solve_force(
         R12n * np.cos(tangential_angel_of_AB).reshape(-1, 1)
         - R12t_x.reshape(-1, 1)
         - c_force_x.reshape(-1, 1)
-    )
+    )#R12n * np.cos(tangential_angel_of_AB)方向是x轴负方向，
 
     R12t_x = np.hstack((R12t_x, R12t_x))
     R12t_y = np.hstack((R12t_y, R12t_y))
@@ -166,6 +171,7 @@ def force(e, a, b, w, d, i, m1, m2, m3, pc):
         ac_y,
         a_B,
     ) = output_result_v_and_a(sigma, e, a, b, w, i, print=False, output=True)
+    
     os.makedirs('result', exist_ok=True)
     p_force, R12n, R12t, c_force, c_torque, R12, R03, Mb = solve_force(
         ac_x,
@@ -191,8 +197,8 @@ def force(e, a, b, w, d, i, m1, m2, m3, pc):
     # print(len(angel_list),len(p_force),len(R12n),len(R12t),len(c_force),len(c_torque),len(R12),len(R03),len(Mb))
     with open('result/力分析.txt','w',encoding='utf-8') as f:
         f.write("第4行右边的垂直的角度、第8行是最低点的角度、第12行左边的垂直角度\n\
-            和压力是向上为正方向，r12t是逆时针为正方向，ro3向右为正方向，\n\
-            ro1只有大小，Mi以及Mb是顺时针为正方向，")
+            和压力是向上为正方向，r12t是逆时针为正方向，ro3向右为正方向，、\n\
+            ro1只有大小，Mi以及Mb是顺时针为正方向，\n")
         f.write(
                 "{:<10}{:<15}{:<15}{:<15}{:<15}{:<15}{:<15}{:<15}{:<15}{:<15}\n".format(
                     "angel", "和压力p(N)", "R12n(N)", "R12t(N)", 
@@ -217,19 +223,19 @@ def force(e, a, b, w, d, i, m1, m2, m3, pc):
 
 
 if __name__ == "__main__":
-    e = 0.07  # 曲柄偏心距单位m
-    K = 1.08  # 行程速比系数
-    H = 0.32  # 滑块行程单位m
-    I = 0.38  # ab杆质心到a端距离系数
-    D = 23  # 滑块直径 ，单位cm
-    M1 = 190  # 曲柄质量单位N
-    M2 = 140  # 连杆质量
-    M3 = 230  # 滑块质量
-    pc = 0.17  # 转动半径系数
+    e = 0.060 # 曲柄偏心距单位m
+    K = 1.05  # 行程速比系数
+    H = 0.270  # 滑块行程单位m
+    I = 0.36  # ab杆质心到a端距离系数
+    D = 22  # 滑块直径 ，单位cm
+    M1 = 170  # 曲柄质量单位N
+    M2 = 135  # 连杆质量
+    M3 = 210  # 滑块质量
+    pc = 0.165  # 转动半径系数
     a, b = solve_longth_of_stick(K, H, e)  # 曲柄长度, 连杆长度
     print("曲柄长度: ", a)
     print("连杆长度: ", b)
-    n = 590  # 转速rpm
+    n = 610  # 转速rpm
     w = n * 2 * sp.pi / 60  # 转速转化为弧度/s
 
     force(e, a, b, w,D, I, M1, M2, M3,pc)
